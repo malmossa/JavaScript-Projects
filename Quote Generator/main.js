@@ -13,3 +13,10 @@ const quotes = [
 
 const quoteText = document.querySelector(".quote");
 const button = document.querySelector(".btn");
+
+button.addEventListener("click", displayQuote);
+
+function displayQuote() {
+  const randomIndex = Math.floor(Math.random() * 9);
+  quoteText.innerText = quotes[randomIndex];
+}
