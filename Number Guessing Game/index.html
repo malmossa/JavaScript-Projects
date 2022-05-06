@@ -32,12 +32,18 @@
           high or too low.
         </p>
         <form class="d-flex">
-          <input type="text" class="form-control" placeholder="Enter a guess" />
-          <button type="submit" class="btn btn-primary mx-2">Submit</button>
+          <input
+            type="text"
+            class="form-control number-input"
+            placeholder="Enter a guess"
+          />
+          <button type="button" class="btn btn-primary mx-2">Submit</button>
         </form>
-        <p class="mt-2">Previous guesses: <span>2 3 4</span></p>
+        <p class="mt-2">
+          Previous guesses: <span class="previous-guesses">2 3 4</span>
+        </p>
         <div class="alert alert-danger">The result should display here</div>
-        <p>Last guess was <span>hight!</span></p>
+        <p>Last guess was <span class="hight-low">hight!</span></p>
       </div>
     </div>
     <script
