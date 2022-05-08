@@ -7,22 +7,34 @@ const hightLow = document.querySelector(".hight-low");
 button.addEventListener("click", play);
 
 const randomNumber = Math.floor(Math.random() * 100);
+
 let turnsCount = 0;
 
 function play(e) {
   e.preventDefault();
-  const guessValue = guessedNumber.value;
+  const guessValue = Number(guessedNumber.value);
+
   turnsCount++;
   guesses.textContent += ` ${guessValue}`;
 
-  if (randomNumber !== guessValue) {
+  if (randomNumber === guessValue) {
     result.classList.remove("d-none");
-    result.classList.add("alert-danger");
-    result.textContent = "WRONG! Try again.";
+
+    if (result.classList.contains("alert-danger")) {
+      result.classList.remove("alert-danger");
+    }
+
+    result.textContent = "CONGRATULATIONS! that was currect. ";
+    result.classList.add("alert-success");
   } else {
     result.classList.remove("d-none");
-    result.classList.add("alert-success");
-    result.textContent = "CONGRATULATIONS! that was currect. ";
+
+    if (result.classList.contains("alert-success")) {
+      result.classList.remove("alert-success");
+    }
+
+    result.textContent = "WRONG! Try again.";
+    result.classList.add("alert-danger");
   }
 
   if (guessValue > randomNumber) {
