@@ -45,3 +45,10 @@ function play(e) {
 
   guessedNumber.value = "";
 }
+
+function gameOver() {
+  const modalContainer = new bootstrap.Modal(document.querySelector(".modal"));
+  modalContainer.show();
+}
+
+gameOver();
