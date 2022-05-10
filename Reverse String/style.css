@@ -1,0 +1,9 @@
+.container {
+  max-width: 500px;
+  margin-top: 20%;
+}
+
+.alert {
+  letter-spacing: 10px;
+  text-transform: uppercase;
+}
