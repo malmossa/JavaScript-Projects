@@ -4,18 +4,24 @@ const guesses = document.querySelector(".previous-guesses");
 const result = document.querySelector(".alert");
 const hightLow = document.querySelector(".hight-low");
 
-button.addEventListener("click", play);
+button.addEventListener("click", gamePlay);
 
-const randomNumber = Math.floor(Math.random() * 100);
+// const randomNumber = Math.floor(Math.random() * 100);
+const randomNumber = 5;
 
 let turnsCount = 0;
 
-function play(e) {
+function gamePlay(e) {
   e.preventDefault();
   const guessValue = Number(guessedNumber.value);
 
   turnsCount++;
+
   guesses.textContent += ` ${guessValue}`;
+
+  if (turnsCount === 11) {
+    gameOver();
+  }
 
   if (randomNumber === guessValue) {
     result.classList.remove("d-none");
@@ -26,6 +32,7 @@ function play(e) {
 
     result.textContent = "CONGRATULATIONS! that was currect. ";
     result.classList.add("alert-success");
+    gameOver();
   } else {
     result.classList.remove("d-none");
 
@@ -46,6 +53,14 @@ function play(e) {
   guessedNumber.value = "";
 }
 
+function gameOver() {
+  guessedNumber.setAttribute("disabled", "");
+  const previous = document.querySelector(".previous");
+  previous.classList.add("d-none");
+
+  const lastGuess = document.querySelector(".last-guess");
+  lastGuess.classList.add("d-none");
+}
 // function gameOver() {
 //   const modalContainer = new bootstrap.Modal(document.querySelector(".modal"));
 //   modalContainer.show();
