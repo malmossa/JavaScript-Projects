@@ -17,49 +17,47 @@ function gamePlay(e) {
 
   turnsCount++;
 
-  guesses.textContent += ` ${guessValue}`;
+  if (turnsCount === 10) {
+  } else {
+    guesses.textContent += ` ${guessValue}`;
+    if (randomNumber === guessValue) {
+      result.classList.remove("d-none");
+      gameWin();
 
-  if (turnsCount === 11) {
-    gameOver();
-  }
+      if (result.classList.contains("alert-danger")) {
+        result.classList.remove("alert-danger");
+      }
 
-  if (randomNumber === guessValue) {
-    result.classList.remove("d-none");
+      result.textContent = "CONGRATULATIONS! that was currect. ";
+      result.classList.add("alert-success");
+    } else {
+      result.classList.remove("d-none");
 
-    if (result.classList.contains("alert-danger")) {
-      result.classList.remove("alert-danger");
+      if (result.classList.contains("alert-success")) {
+        result.classList.remove("alert-success");
+      }
+
+      result.textContent = "WRONG! Try again.";
+      result.classList.add("alert-danger");
     }
 
-    result.textContent = "CONGRATULATIONS! that was currect. ";
-    result.classList.add("alert-success");
-    gameOver();
-  } else {
-    result.classList.remove("d-none");
-
-    if (result.classList.contains("alert-success")) {
-      result.classList.remove("alert-success");
+    if (guessValue > randomNumber) {
+      hightLow.textContent = "hight!";
+    } else {
+      hightLow.textContent = "low!";
     }
 
-    result.textContent = "WRONG! Try again.";
-    result.classList.add("alert-danger");
+    guessedNumber.value = "";
   }
-
-  if (guessValue > randomNumber) {
-    hightLow.textContent = "hight!";
-  } else {
-    hightLow.textContent = "low!";
-  }
-
-  guessedNumber.value = "";
 }
 
-function gameOver() {
+function gameWin() {
   guessedNumber.setAttribute("disabled", "");
-  const previous = document.querySelector(".previous");
-  previous.classList.add("d-none");
-
   const lastGuess = document.querySelector(".last-guess");
   lastGuess.classList.add("d-none");
+
+  const playAgainButton = document.querySelector(".play-again");
+  playAgainButton.classList.remove("d-none");
 }
 // function gameOver() {
 //   const modalContainer = new bootstrap.Modal(document.querySelector(".modal"));
