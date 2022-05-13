@@ -1,3 +1,5 @@
+import { startConfetti } from "./confetti.js";
+
 const guessedNumber = document.querySelector(".number-input");
 const button = document.querySelector(".btn");
 const guesses = document.querySelector(".previous-guesses");
@@ -8,7 +10,8 @@ const playAgainButton = document.querySelector(".play-again");
 button.addEventListener("click", gamePlay);
 playAgainButton.addEventListener("click", gameReset);
 
-const randomNumber = Math.floor(Math.random() * 100);
+// const randomNumber = Math.floor(Math.random() * 100);
+const randomNumber = 10;
 
 let turnsCount = 0;
 
@@ -50,6 +53,7 @@ function gameWin() {
   result.classList.add("alert-success");
 
   playAgainButton.classList.remove("d-none");
+  startConfetti();
 }
 
 function gameLost() {

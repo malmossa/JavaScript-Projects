@@ -1,3 +1,8 @@
 .container {
   max-width: 600px;
 }
+
+#confetti-canvas {
+  position: absolute;
+  top: 0;
+}
