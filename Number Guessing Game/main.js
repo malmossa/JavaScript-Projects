@@ -3,11 +3,12 @@ const button = document.querySelector(".btn");
 const guesses = document.querySelector(".previous-guesses");
 const result = document.querySelector(".alert");
 const hightLow = document.querySelector(".hight-low");
+const playAgainButton = document.querySelector(".play-again");
 
 button.addEventListener("click", gamePlay);
+playAgainButton.addEventListener("click", gameReset);
 
-// const randomNumber = Math.floor(Math.random() * 100);
-const randomNumber = 25;
+const randomNumber = Math.floor(Math.random() * 100);
 
 let turnsCount = 0;
 
@@ -48,7 +49,6 @@ function gameWin() {
 
   result.classList.add("alert-success");
 
-  const playAgainButton = document.querySelector(".play-again");
   playAgainButton.classList.remove("d-none");
 }
 
@@ -61,10 +61,9 @@ function gameLost() {
   result.textContent = `SORRY YOU LOST.. in ${turnsCount} guesses`;
   result.classList.add("alert-danger");
 
-  const playAgainButton = document.querySelector(".play-again");
   playAgainButton.classList.remove("d-none");
 }
-// function gameOver() {
-//   const modalContainer = new bootstrap.Modal(document.querySelector(".modal"));
-//   modalContainer.show();
-// }
+
+function gameReset() {
+  location.reload();
+}
