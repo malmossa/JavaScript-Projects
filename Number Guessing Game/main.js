@@ -10,8 +10,7 @@ const playAgainButton = document.querySelector(".play-again");
 button.addEventListener("click", gamePlay);
 playAgainButton.addEventListener("click", gameReset);
 
-// const randomNumber = Math.floor(Math.random() * 100);
-const randomNumber = 10;
+const randomNumber = Math.floor(Math.random() * 100);
 
 let turnsCount = 0;
 
@@ -54,6 +53,10 @@ function gameWin() {
 
   playAgainButton.classList.remove("d-none");
   startConfetti();
+
+  // Play Sound
+  const audio = new Audio("./applause-01.mp3");
+  audio.play();
 }
 
 function gameLost() {
