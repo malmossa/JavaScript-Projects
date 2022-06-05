@@ -10,7 +10,9 @@ const mouse = {
   y: undefined,
 };
 
-let dotsArray = [];
+let hue = 0;
+
+let particlesArray = [];
 
 /* Event Listeners */
 window.addEventListener("resize", () => {
@@ -18,12 +20,22 @@ window.addEventListener("resize", () => {
   canvas.height = window.innerHeight;
 });
 
+canvas.addEventListener("mousemove", (event) => {
+  mouse.x = event.x;
+  mouse.y = event.y;
+
+  for (let i = 0; i < 3; i++) {
+    particlesArray.push(new Particle());
+  }
+});
+
 /* Class */
-class Dot {
+class Particle {
   constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
+    this.x = mouse.x;
+    this.y = mouse.y;
     this.size = Math.random() * 15;
+    this.color = `hsl(${hue}, 100%, 50%)`;
     this.directionX = Math.random() * 3 - 1.5;
     this.directionY = Math.random() * 3 - 1.5;
   }
@@ -31,10 +43,14 @@ class Dot {
   update() {
     this.x += this.directionX;
     this.y += this.directionY;
+
+    if (this.size > 0.2) {
+      this.size -= 0.1;
+    }
   }
 
   drawCircle() {
-    ctx.fillStyle = "red";
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
@@ -42,23 +58,41 @@ class Dot {
 }
 
 /* Functions */
-function init() {
-  for (let i = 0; i < 100; i++) {
-    dotsArray.push(new Dot());
-  }
-}
-init();
 
-function createDots() {
-  for (let i = 0; i < dotsArray.length; i++) {
-    dotsArray[i].update();
-    dotsArray[i].drawCircle();
+function handleParticles() {
+  for (let i = 0; i < particlesArray.length; i++) {
+    particlesArray[i].update();
+    particlesArray[i].drawCircle();
+
+    for (let j = 0; j < particlesArray.length; j++) {
+      const dx = particlesArray[i].x - particlesArray[j].x;
+      const dy = particlesArray[i].y - particlesArray[j].y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 100) {
+        ctx.beginPath();
+        ctx.strokeStyle = particlesArray[i].color;
+        ctx.lineWidth = 0.3;
+        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+        ctx.stroke();
+        ctx.closePath();
+      }
+    }
+
+    if (particlesArray[i].size <= 0.3) {
+      particlesArray.splice(i, 1);
+      i--;
+    }
   }
 }
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  createDots();
+  ctx.fillStyle = "rgba(0, 0, 0, 0.02";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  handleParticles();
+  hue += 5;
   requestAnimationFrame(animate);
 }
 
