@@ -9,31 +9,46 @@ window.addEventListener("resize", () => {
   canvas.height = window.innerHeight;
 });
 
-let x = Math.floor(Math.random() * canvas.width);
-let y = Math.floor(Math.random() * canvas.height);
-let dx = Math.random() * 8 - 5;
-let dy = Math.random() * 8 - 5;
-const radius = 10;
+let particlesArray = [];
+
+// Class
+class Particles {
+  constructor() {
+    this.x = Math.floor(Math.random() * canvas.width);
+    this.y = Math.floor(Math.random() * canvas.height);
+    this.dx = Math.random() * 8 - 5;
+    this.dy = Math.random() * 8 - 5;
+    this.radius = 10;
+  }
+
+  draw() {
+    // draw circle
+    ctx.fillStyle = "#fff";
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fill();
+
+    this.x += this.dx;
+    this.y += this.dy;
+
+    if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+      this.dx = -this.dx;
+    }
+    if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+      this.dy = -this.dy;
+    }
+  }
+}
+
+function init() {
+  for (let i = 0; i < 50; i++) {
+    particlesArray.push(new Particles());
+  }
+}
+init();
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // draw circle
-  ctx.fillStyle = "#fff";
-  ctx.beginPath();
-  ctx.arc(x, y, radius, 0, Math.PI * 2);
-  ctx.fill();
-
-  x += dx;
-  y += dy;
-
-  if (x + radius > canvas.width || x - radius < 0) {
-    dx = -dx;
-  }
-  if (y + radius > canvas.height || y - radius < 0) {
-    dy = -dy;
-  }
-
   requestAnimationFrame(animate);
 }
 
