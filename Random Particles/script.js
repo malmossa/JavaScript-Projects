@@ -12,11 +12,11 @@ const particlesArray = [];
 class Particles {
   constructor() {
     (this.color = `#${Math.floor(Math.random() * 16777215).toString(16)}`),
-      (this.size = Math.floor(Math.random() * 10)),
-      (this.x = Math.floor(Math.random() * canvas.width)),
-      (this.y = Math.floor(Math.random() * canvas.height)),
-      (this.dx = Math.floor(Math.random() * 5 - 2.5)),
-      (this.dy = Math.floor(Math.random() * 5 - 2.5));
+      (this.size = Math.random() * 15),
+      (this.x = Math.random() * canvas.width),
+      (this.y = Math.random() * canvas.height),
+      (this.dx = Math.random() * 5 - 2.5),
+      (this.dy = Math.random() * 5 - 2.5);
   }
   draw() {
     ctx.fillStyle = "#fff";
@@ -27,11 +27,18 @@ class Particles {
   update() {
     this.x += this.dx;
     this.y += this.dy;
+
+    if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+      this.dx = -this.dx;
+    }
+    if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+      this.dy = -this.dy;
+    }
   }
 }
 
 function initiate() {
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 100; i++) {
     particlesArray.push(new Particles());
   }
 }
