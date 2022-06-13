@@ -11,8 +11,7 @@ const particlesArray = [];
 /* Particles Class */
 class Particles {
   constructor() {
-    (this.color =
-      /*`#${Math.floor(Math.random() * 16777215).toString(16)}`)*/ "#fff"),
+    (this.color = `#${Math.floor(Math.random() * 16777215).toString(16)}`),
       (this.size = Math.random() * 10),
       (this.x = Math.random() * canvas.width),
       (this.y = Math.random() * canvas.height),
@@ -20,7 +19,7 @@ class Particles {
       (this.dy = Math.random() * 5 - 2.5);
   }
   draw() {
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
@@ -39,7 +38,7 @@ class Particles {
 }
 
 function initiate() {
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 250; i++) {
     particlesArray.push(new Particles());
   }
 }
