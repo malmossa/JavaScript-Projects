@@ -11,8 +11,9 @@ const particlesArray = [];
 /* Particles Class */
 class Particles {
   constructor() {
-    (this.color = `#${Math.floor(Math.random() * 16777215).toString(16)}`),
-      (this.size = Math.random() * 15),
+    (this.color =
+      /*`#${Math.floor(Math.random() * 16777215).toString(16)}`)*/ "#fff"),
+      (this.size = Math.random() * 10),
       (this.x = Math.random() * canvas.width),
       (this.y = Math.random() * canvas.height),
       (this.dx = Math.random() * 5 - 2.5),
@@ -38,7 +39,7 @@ class Particles {
 }
 
 function initiate() {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 200; i++) {
     particlesArray.push(new Particles());
   }
 }
@@ -49,6 +50,22 @@ function handleParticles() {
   for (let i = 0; i < particlesArray.length; i++) {
     particlesArray[i].draw();
     particlesArray[i].update();
+
+    for (let j = 0; j < particlesArray.length; j++) {
+      const dx = particlesArray[i].x - particlesArray[j].x;
+      const dy = particlesArray[i].y - particlesArray[j].y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 70) {
+        ctx.beginPath();
+        ctx.strokeStyle = particlesArray[i].color;
+        ctx.lineWidth = 0.3;
+        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+        ctx.stroke();
+        ctx.closePath();
+      }
+    }
   }
 }
 
