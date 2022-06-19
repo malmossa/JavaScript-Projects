@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 const port = process.env.PORT || 4001;
 const workoutRoutes = require("./routes/workouts");
@@ -13,7 +14,15 @@ app.use(express.json()); // allow us to access the req.body, so we can get user 
 // routes
 app.use("/api/workouts", workoutRoutes);
 
-// listen for requests
-app.listen(port, () => {
-  console.log(`The server is running on port: ${port}`);
-});
+// connect to database
+mongoose
+  .connect(process.env.MONG_URL)
+  .then(() => {
+    // listen for requests
+    app.listen(port, () => {
+      console.log(`The server is running on port: ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
