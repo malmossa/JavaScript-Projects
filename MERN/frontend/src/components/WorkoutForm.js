@@ -16,6 +16,7 @@ const WorkoutForm = () => {
       body: JSON.stringify(workout),
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
     });
     const json = await response.json();
@@ -63,4 +64,4 @@ const WorkoutForm = () => {
   );
 };
 
-export default WorkoutForm;
+export default WorkoutForm; 
