@@ -1,8 +1,17 @@
-const name = "Mansor";
-let newName = "";
+const add = document.querySelector(".plus");
+const subtract = document.querySelector(".minus");
+const showNumber = document.querySelector(".result");
 
-for (let i = name.length; i >= 0; i--) {
-  newName += name[i];
+add.addEventListener("click", adding);
+subtract.addEventListener("click", subtracting);
+
+let number = 0;
+function adding() {
+  number++;
+  showNumber.innerHTML = number;
 }
 
-console.log(newName);
+function subtracting() {
+  number--;
+  showNumber.innerHTML = number;
+}
